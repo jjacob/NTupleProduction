@@ -73,10 +73,6 @@ def setup_ntupler(process, cms, options):
             'keep *_rootTuplePFMet*_*_*',
             'keep *_rootTupleType1CorrectedPFMet*_*_*',
             'keep *_rootTupleType1p2CorrectedPFMet*_*_*',
-            #MET corrections                                                                                                                                                                                                          
-            'keep *_rootTupleSysShiftMetCorrections*_*_*',
-            'keep *_rootTupleType0MetCorrections*_*_*',
-            'keep *_rootTupleType1MetCorrections*_*_*',
             #muons
             'keep *_nTupleMuons_*_*',
             'keep *_nTuplePFMuons_*_*',
@@ -126,10 +122,6 @@ def setup_ntupler(process, cms, options):
         process.rootTuplePFType1CorrectedMET +
         process.rootTuplePFType1p2CorrectedMET +
         process.rootTuplePFType1p2CorrectedMetPFlow +
-        #MET corrections
-        process.rootTupleSysShiftMetCorrections +
-        process.rootTupleType0MetCorrections +
-        process.rootTupleType1MetCorrections +
         #MET uncertainties
         process.rootTuplePFMetElectronEnUp +
         process.rootTuplePFMetElectronEnDown +
