@@ -125,7 +125,7 @@ options.register ('isMCatNLO',
                   False,
                   VarParsing.multiplicity.singleton,
                   VarParsing.varType.bool,
-		 "Identify if samples contains ttbar MC@NLO events (different genParticle structure)")
+                  "Identify if samples contains ttbar MC@NLO events (different genParticle structure)")
 
 options.register ('skipEvents',
                   0,
