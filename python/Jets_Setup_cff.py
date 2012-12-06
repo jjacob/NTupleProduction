@@ -31,6 +31,11 @@ def setup_jets(process, cms, options, postfix="PFlow"):
         process.patJetCorrFactorsPFlow.levels = inputJetCorrLabel[1]
         process.patJetCorrFactorsPFlow.rho = cms.InputTag("kt6PFJets", "rho")
 
+<<<<<<< HEAD
+=======
+    #lots of stuff down here is obsolete for 52x - need to clean up
+    
+>>>>>>> removing CA08 jets from configs (not used + genParticle problems with MC@NLO) and removing flavour history from MC@NLO analysis (genParticles problems)
     ###############################
     #### Jet RECO includes ########
     ###############################
@@ -75,7 +80,11 @@ def setup_jets(process, cms, options, postfix="PFlow"):
                                              doAreaFastjet=cms.bool(True),
                                              doRhoFastjet=cms.bool(True)
     )
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> removing CA08 jets from configs (not used + genParticle problems with MC@NLO) and removing flavour history from MC@NLO analysis (genParticles problems)
     ###############################
     ### TagInfo and Matching Setup#
     ###############################

@@ -271,12 +271,16 @@ process.patseq = cms.Sequence(
     process.flavorHistorySeq 
     )
 
+process.patseq.replace(process.goodOfflinePrimaryVertices,
+                            process.goodOfflinePrimaryVertices * 
+                            process.eidCiCSequence)
+
 if options.useData:
     process.patseq.remove(process.genParticlesForJetsNoNu)
     process.patseq.remove(process.genJetParticles)    
     process.patseq.remove(process.flavorHistorySeq)
     process.patseq.remove(process.genParticlesForJets)
-        
+
 # remove flavour history as it has problems with the MC@NLO genparticles
 if options.isMCatNLO:
     process.patseq.remove(process.flavorHistorySeq)
