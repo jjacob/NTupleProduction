@@ -35,7 +35,7 @@ if options.isMCatNLO:
     process.ttFullLeptonicETauFilter.useMCATNLO = cms.bool(True)
     process.ttFullLeptonicEMuFilter.useMCATNLO = cms.bool(True)
     process.ttFullLeptonicMuTauFilter.useMCATNLO = cms.bool(True)
-    
+
 if options.CMSSW == '44X':
     process.topPairEPlusJetsSelection.MCSampleTag = cms.string('Fall11')  
     process.topPairMuPlusJetsSelection.MCSampleTag = cms.string('Fall11')  
@@ -44,7 +44,6 @@ else:
     process.topPairMuPlusJetsSelection.MCSampleTag = cms.string('Summer12')
 
 process.MCFiltersInTaggingMode = cms.Sequence(process.ttFullHadronicFilter * 
-#                                                     process.ttFullLeptonicFilter * 
                                                      process.ttSemiLeptonicElectronFilter * 
                                                      process.ttSemiLeptonicMuonFilter * 
                                                      process.ttSemiLeptonicTauFilter * 

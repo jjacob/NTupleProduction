@@ -25,7 +25,6 @@ process.ttFullLeptonicETauFilter.taggingMode = cms.bool(True)
 process.ttFullLeptonicEMuFilter.taggingMode = cms.bool(True)
 process.ttFullLeptonicMuTauFilter.taggingMode = cms.bool(True)
 
-
 if options.isMCatNLO:
     process.ttFullHadronicFilter.useMCATNLO = cms.bool(True)
     process.ttFullLeptonicFilter.useMCATNLO = cms.bool(True)
