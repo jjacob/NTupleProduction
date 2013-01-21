@@ -16,7 +16,7 @@ GLOBALTAG_MC = 'START53_V14::All'
 FILETAG = '53X'
 
 TEST_DATA_FILE = 'file:///storage/TopQuarkGroup/test/SingleElectron_Run2012B_196531_524_PromptReco-v1_AOD.root'
-TEST_MC_FILE = 'file:///storage/phjaj/datasets/mc/8TeV/E2CDA378-0126-E211-9C94-003048F0E1AE.root'
+TEST_MC_FILE = 'file:///storage/TopQuarkGroup/mc/8TeV/SynchEx/Summer12_DR53X_TTJets_MassiveBinDECAY_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V7A-v1.root'
 
 #CERN
 #TEST_DATA_FILE = '/store/data/Run2012A/ElectronHad/AOD/PromptReco-v1/000/193/336/C47F154E-A697-E111-83F5-001D09F24D8A.root'

@@ -83,10 +83,10 @@ void TopPairElectronPlusJets2012SelectionFilter::fillDescriptions(edm::Configura
 	desc.add < InputTag > ("ECALDeadCellFilterInput");
 	desc.add < InputTag > ("TrackingFailureFilterInput");
 	desc.add < InputTag > ("BadEESupercrystalFilterInput");
-	desc.add<double>("min1JetPt", 45.0);
-	desc.add<double>("min2JetPt", 45.0);
-	desc.add<double>("min3JetPt", 45.0);
-	desc.add<double>("min4JetPt", 20.0);
+	desc.add<double>("min1JetPt", 30.0);
+	desc.add<double>("min2JetPt", 30.0);
+	desc.add<double>("min3JetPt", 30.0);
+	desc.add<double>("min4JetPt", 30.0);
 	desc.add<double>("tightElectronIsolation", 0.1);
 	desc.add<double>("looseElectronIsolation", 0.15);
 	desc.add<double>("looseMuonIsolation", 0.2);
@@ -379,7 +379,6 @@ bool TopPairElectronPlusJets2012SelectionFilter::passesScrapingVeto(edm::Event& 
 					numhighpurity++;
 			}
 			fraction = (double) numhighpurity / (double) tracks->size();
-
 		}
 	} else {
 		edm::LogError("EventFilterError") << "Error! Can't get the product " << trkInput_;
@@ -401,47 +400,18 @@ bool TopPairElectronPlusJets2012SelectionFilter::passesTriggerSelection() const 
 		else if (runNumber_ > 178380 && runNumber_ < 190456)
 			return triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFJet30", hltConfig_,
 					triggerResults_);
-		else if (runNumber_ >= 190456 && runNumber_ < 193806)
-			return triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFJet30", hltConfig_,
-					triggerResults_)
-					|| triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFNoPUJet30", hltConfig_,
-							triggerResults_);
-		else if (runNumber_ >= 193806)
-			return triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFNoPUJet30", hltConfig_,
-					triggerResults_)
-					|| triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFNoPUJet30_30_20",
-							hltConfig_, triggerResults_)
-					|| triggerFired("HLT_Ele25_CaloIdVT_CaloIsoVL_TrkIdVL_TrkIsoT_TriCentralPFNoPUJet45_35_25",
-							hltConfig_, triggerResults_);
-//					|| triggerFired("HLT_Ele25_CaloIdVT_CaloIsoVL_TrkIdVL_TrkIsoT_TriCentralPFNoPUJet30", hltConfig_,
-//							triggerResults_);
-		else
-			return false;
+		else //2012 data
+			return triggerFired("HLT_Ele27_WP80_v", hltConfig_, triggerResults_);
+
 	} else {
 		if (MCSampleTag_ == "Fall11") {
 			//Fall11 MC
-			return triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralJet30", hltConfig_,
-					triggerResults_);
+			return triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralJet30", hltConfig_, triggerResults_);
 		} else {
 			//Summer12 MC
-			//do not use HLTs in Summer12 MC as they don't use JEC
-			//https://hypernews.cern.ch/HyperNews/CMS/get/top-trigger/66.html
-			//			return true;
-			//let's put it back - discussion inconclusive but it is better to have a scale factor than efficiency corrections
-			bool fired_START52_V5 = triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFJet30",
-					hltConfig_, triggerResults_);
-			bool fired_START52_V9 = triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFJet30",
-					hltConfig_, triggerResults_)
-					|| triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFNoPUJet30", hltConfig_,
-							triggerResults_);
-			bool fired_START53_V7A = triggerFired("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFNoPUJet50_40_30",
-					hltConfig_, triggerResults_)
-					|| triggerFired("HLT_Ele25_CaloIdVT_CaloIsoVL_TrkIdVL_TrkIsoT_TriCentralPFNoPUJet50_40_30",
-							hltConfig_, triggerResults_);
-			return fired_START52_V5 || fired_START52_V9 || fired_START53_V7A;
+			return triggerFired("HLT_Ele27_WP80_v", hltConfig_, triggerResults_);
 		}
 	}
-
 	return false;
 }
 
