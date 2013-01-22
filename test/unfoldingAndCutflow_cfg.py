@@ -1,7 +1,7 @@
 #import default nTuple stub
 from BristolAnalysis.NTupleTools.NTupleTools_cff import *
 ##########################################################################################
-#            Test files
+# Test files
 ##########################################################################################
 #TEST_MC_FILE = 'file:///storage/TopQuarkGroup/test/TTJets_TuneZ2_7TeV_Fall11_44X_AODSIM.root'
 #TEST_MC_FILE = 'file:///storage/TopQuarkGroup/test/TT_TuneZ2_7TeV_POWHEG_44X.root'
@@ -11,7 +11,7 @@ from BristolAnalysis.NTupleTools.NTupleTools_cff import *
 #            TEST_MC_FILE
 #            ]
 ##########################################################################################
-#            General
+# General
 ##########################################################################################
 process.load('TopQuarkAnalysis.TopSkimming.TtFullyHadronicFilter_cfi')
 process.load('TopQuarkAnalysis.TopSkimming.TtFullyLeptonicFilter_cfi')
@@ -49,10 +49,10 @@ if options.isMCatNLO:
     process.ttFullLeptonicMuTauFilter.useMCATNLO = cms.bool(True)
 
 if options.CMSSW == '44X':
-    process.topPairEPlusJetsSelection.MCSampleTag = cms.string('Fall11')  
-    process.topPairMuPlusJetsSelection.MCSampleTag = cms.string('Fall11')  
+    process.topPairEPlusJetsSelection.MCSampleTag = cms.string('Fall11')
+    process.topPairMuPlusJetsSelection.MCSampleTag = cms.string('Fall11')
 else:
-    process.topPairEPlusJetsSelection.MCSampleTag = cms.string('Summer12')  
+    process.topPairEPlusJetsSelection.MCSampleTag = cms.string('Summer12')
     process.topPairMuPlusJetsSelection.MCSampleTag = cms.string('Summer12')
 
 electronselectionPrefix = 'TopPairElectronPlusJets2012Selection.'
@@ -63,24 +63,24 @@ process.topPairMuPlusJetsSelection.prefix = cms.untracked.string(muonselectionPr
 process.load("TopQuarkAnalysis.TopEventProducers.sequences.ttGenEvent_cff")
 
 process.MCFiltersInTaggingMode = cms.Sequence(process.makeGenEvt *
-                                                     process.ttFullHadronicFilter * 
-                                                     process.ttFullLeptonicFilter * 
-                                                     process.ttSemiLeptonicElectronFilter * 
-                                                     process.ttSemiLeptonicMuonFilter * 
-                                                     process.ttSemiLeptonicTauFilter * 
-                                                     process.ttFullLeptonicEEFilter * 
-                                                     process.ttFullLeptonicMuMuFilter * 
-                                                     process.ttFullLeptonicTauTauFilter * 
-                                                     process.ttFullLeptonicETauFilter * 
-                                                     process.ttFullLeptonicEMuFilter * 
+                                                     process.ttFullHadronicFilter *
+                                                     process.ttFullLeptonicFilter *
+                                                     process.ttSemiLeptonicElectronFilter *
+                                                     process.ttSemiLeptonicMuonFilter *
+                                                     process.ttSemiLeptonicTauFilter *
+                                                     process.ttFullLeptonicEEFilter *
+                                                     process.ttFullLeptonicMuMuFilter *
+                                                     process.ttFullLeptonicTauTauFilter *
+                                                     process.ttFullLeptonicETauFilter *
+                                                     process.ttFullLeptonicEMuFilter *
                                                      process.ttFullLeptonicMuTauFilter)
 
-process.eventFiltersIntaggingMode = cms.Sequence(process.MCFiltersInTaggingMode * 
+process.eventFiltersIntaggingMode = cms.Sequence(process.MCFiltersInTaggingMode *
                                                      process.topPairEPlusJetsSelection *
                                                      process.topPairMuPlusJetsSelection)
 
 ##########################################################################################
-#            Unfolding Config
+# Unfolding Config
 ##########################################################################################
 process.load('BristolAnalysis.NTupleTools.BTagWeight_Producer_cfi')
 process.load('BristolAnalysis.NTupleTools.UnfoldingAnalyser_cfi')
@@ -91,20 +91,21 @@ process.eventWeightBtagEPlusJets = process.eventWeightBtag.clone(
             BJetSystematic = cms.int32(0)
             )
 process.eventWeightBtagMuPlusJets = process.eventWeightBtagEPlusJets.clone(
-            numberOfTagsInput = cms.InputTag("topPairMuPlusJetsSelection", muonselectionPrefix + 'NumberOfBtags', 'PAT')  ,  
-            jetInput = cms.InputTag("topPairMuPlusJetsSelection", muonselectionPrefix + 'cleanedJets', 'PAT'),       
+            numberOfTagsInput = cms.InputTag("topPairMuPlusJetsSelection", muonselectionPrefix + 'NumberOfBtags', 'PAT') ,
+            jetInput = cms.InputTag("topPairMuPlusJetsSelection", muonselectionPrefix + 'cleanedJets', 'PAT'),
                                                               )
 electron_unfolding_analysers = [
     process.unfolding_MET_analyser_electron_channel,
     process.unfolding_HT_analyser_electron_channel,
     process.unfolding_ST_analyser_electron_channel,
-#    process.unfolding_MT_analyser_electron_channel
+    process.unfolding_MT_analyser_electron_channel
 ]
 
 for analyser in electron_unfolding_analysers:
     analyser.selection_flag_input = cms.InputTag("topPairEPlusJetsSelection", electronselectionPrefix + 'FullSelection', 'PAT')
     analyser.b_tag_weight_input = cms.InputTag( 'eventWeightBtagEPlusJets' )
     analyser.reco_jet_input = cms.InputTag("topPairEPlusJetsSelection", electronselectionPrefix + 'cleanedJets', 'PAT')
+    analyser.electron_input = cms.InputTag("topPairEPlusJetsSelection", electronselectionPrefix + 'signalElectron', 'PAT')
 
 muon_unfolding_analysers = [
     process.unfolding_MET_analyser_muon_channel,
@@ -117,18 +118,19 @@ for analyser in muon_unfolding_analysers:
     analyser.selection_flag_input = cms.InputTag("topPairMuPlusJetsSelection", muonselectionPrefix + 'FullSelection', 'PAT')
     analyser.b_tag_weight_input = cms.InputTag( 'eventWeightBtagMuPlusJets' )
     analyser.reco_jet_input = cms.InputTag("topPairMuPlusJetsSelection", muonselectionPrefix + 'cleanedJets', 'PAT')
+    analyser.muon_input = cms.InputTag("topPairMuPlusJetsSelection", muonselectionPrefix + 'signalMuon', 'PAT')
 
 process.unfoldingAnalysisSequence = cms.Sequence(process.eventFiltersIntaggingMode *
                                                  process.eventWeightBtagEPlusJets *
                                                  process.eventWeightBtagMuPlusJets *
-                                                 process.printEventContent * 
+                                                 process.printEventContent *
                                                  process.unfolding_MET_analyser_electron_channel*
                                                  process.unfolding_MET_analyser_muon_channel*
                                                  process.unfolding_HT_analyser_electron_channel*
                                                  process.unfolding_HT_analyser_muon_channel*
                                                  process.unfolding_ST_analyser_electron_channel*
                                                  process.unfolding_ST_analyser_muon_channel*
-#                                                 process.unfolding_MT_analyser_electron_channel*
+                                                 process.unfolding_MT_analyser_electron_channel*
                                                  process.unfolding_MT_analyser_muon_channel)
     
     
@@ -137,36 +139,36 @@ if not options.printEventContent:
 
 if options.isTTbarMC:
     process.unfoldingAnalysis = cms.Path(
-                      process.hlTrigReport * 
-                      process.egammaIDLikelihood * 
+                      process.hlTrigReport *
+                      process.egammaIDLikelihood *
                       process.pfMEtSysShiftCorrSequence *
-                      process.patseq * 
-                      process.EventFilters * 
-                      getattr(process, "producePatPFMETCorrections" + postfix) * 
+                      process.patseq *
+                      process.EventFilters *
+                      getattr(process, "producePatPFMETCorrections" + postfix) *
                       getattr(process, "patMETs" + postfix)*
                       process.eventWeightPU *
-                      process.unfoldingAnalysisSequence 
+                      process.unfoldingAnalysisSequence
                       )
     if not options.setupMETmanually:
         process.unfoldingAnalysis.remove(getattr(process, "producePatPFMETCorrections" + postfix))
         process.unfoldingAnalysis.remove(getattr(process, "patMETs" + postfix))
 
 ##########################################################################################
-#            Selection Config
+# Selection Config
 ##########################################################################################
 process.load('BristolAnalysis.NTupleTools.SelectionAnalyser_cfi')
 
 process.selectionAnalysis = cms.Path(
-                      process.hlTrigReport * 
-                      process.egammaIDLikelihood * 
+                      process.hlTrigReport *
+                      process.egammaIDLikelihood *
                       process.pfMEtSysShiftCorrSequence *
-                      process.patseq * 
-                      process.EventFilters * 
-                      getattr(process, "producePatPFMETCorrections" + postfix) * 
-                      getattr(process, "patMETs" + postfix) * 
-                      process.eventFiltersIntaggingMode * 
-                      process.eventWeightPU * 
-                      process.ttbarDecayAnalyser * 
+                      process.patseq *
+                      process.EventFilters *
+                      getattr(process, "producePatPFMETCorrections" + postfix) *
+                      getattr(process, "patMETs" + postfix) *
+                      process.eventFiltersIntaggingMode *
+                      process.eventWeightPU *
+                      process.ttbarDecayAnalyser *
                       process.topPairEPlusJetsSelectionAnalyser *
                       process.topPairMuPlusJetsSelectionAnalyser
                       )
