@@ -22,6 +22,7 @@ using namespace std;
 UnfoldingAnalyser::UnfoldingAnalyser(const edm::ParameterSet& iConfig) :		
 		pu_weight_input_(iConfig.getParameter < edm::InputTag > ("pu_weight_input")), //
 		b_tag_weight_input(iConfig.getParameter < edm::InputTag > ("b_tag_weight_input")), //
+		top_pt_reweight_input_(iConfig.getParameter < edm::InputTag > ("top_pt_reweight_input")), //
 		gen_part_input_(iConfig.getParameter < edm::InputTag > ("gen_part_input")), //
 		gen_MET_input_(iConfig.getParameter < edm::InputTag > ("gen_MET_input")), //
 		reco_MET_input_(iConfig.getParameter < edm::InputTag > ("reco_MET_Input")), //	
@@ -66,6 +67,7 @@ void UnfoldingAnalyser::fillDescriptions(edm::ConfigurationDescriptions & descri
 	edm::ParameterSetDescription desc;
 	desc.add < InputTag > ("pu_weight_input");
 	desc.add < InputTag > ("b_tag_weight_input");
+	desc.add < InputTag > ("top_pt_reweight_input");
 	desc.add < InputTag > ("gen_part_input");
 	desc.add < InputTag > ("gen_MET_input");
 	desc.add < InputTag > ("reco_MET_Input");
@@ -191,10 +193,15 @@ void UnfoldingAnalyser::analyze(const edm::Event& iEvent, const edm::EventSetup&
 	edm::Handle<double> btagWeightHandle;
 	iEvent.getByLabel(b_tag_weight_input, btagWeightHandle);
 
+	edm::Handle<double> topPtReweightHandle;
+	iEvent.getByLabel(top_pt_reweight_input_, topPtReweightHandle);
+
 	double puWeight(*puWeightHandle);
 	double btagWeight(*btagWeightHandle);
-	double weight(puWeight * btagWeight);
-
+	double topPtReweight(*topPtReweightHandle);
+	cout << "topPtReweight = " << topPtReweight << endl;
+	double weight(puWeight * btagWeight * topPtReweight);
+	cout << "weight = " << weight << endl;
 	
 
 	bool passes_selection(passesFilter(iEvent, selection_flag_input_));
