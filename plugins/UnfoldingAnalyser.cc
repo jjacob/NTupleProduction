@@ -157,14 +157,6 @@ void UnfoldingAnalyser::beginJob() {
 			fs->make < TH2F
 					> ("response_without_fakes_AsymBins", TString(
 							"response;RECO(" + variable_under_analysis_ + ");GEN(" + variable_under_analysis_ + ")"), n_asym_bins, METBinEdges, n_asym_bins, METBinEdges);
-	weights_before_top_pt_ =
-			fs->make < TH1F
-					> ("weights_before_top_pt", TString(
-							"event_weights_before_top_pt_reweighting;weight"), n_asym_bins, METBinEdges);
-	weights_after_top_pt_ =
-			fs->make < TH1F
-					> ("weights_after_top_pt", TString(
-							"event_weights_after_top_pt_reweighting;weight"), n_asym_bins, METBinEdges);
 
 	//cout << "Well, you could use 'scram b' as a compiler on your machine within an IDE" << endl;
 // 	truth_->Sumw2();
@@ -182,8 +174,6 @@ void UnfoldingAnalyser::beginJob() {
 	contamination_asym_bins_in_reco_variable_->Sumw2();
 	response_asym_bins_->Sumw2();
 	response_without_fakes_asym_bins_->Sumw2();
-	weights_before_top_pt_->Sumw2();
-	weights_after_top_pt_->Sumw2();
 
 	//cout << "However, you need to be able to install CMSSW on your machine." << endl;
 }
@@ -209,18 +199,10 @@ void UnfoldingAnalyser::analyze(const edm::Event& iEvent, const edm::EventSetup&
 	double puWeight(*puWeightHandle);
 	double btagWeight(*btagWeightHandle);
 	double topPtReweight(*topPtReweightHandle);
-	cout << "topPtReweight = " << topPtReweight << endl;
-
-	double oldRecoWeight(puWeight * btagWeight);
 
 	double truthWeight(puWeight * topPtReweight);
 	double recoWeight(puWeight * btagWeight * topPtReweight);
-	cout << "truthweight = " << truthWeight << endl;
-	cout << "recoweight = " << recoWeight << endl;
 	
-	weights_before_top_pt_->Fill(oldRecoWeight);
-	weights_after_top_pt_->Fill(recoWeight);
-
 	bool passes_selection(passesFilter(iEvent, selection_flag_input_));
 	bool is_fully_hadronic(passesFilter(iEvent, is_fully_hadronic_ttbar_flag_));
 	bool is_dileptonic(passesFilter(iEvent, is_dileptonic_ttbar_flag_));

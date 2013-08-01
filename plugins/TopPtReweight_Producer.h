@@ -14,8 +14,9 @@ public:
 private:
 	void produce (edm::Event&, const edm::EventSetup&);
 	const edm::InputTag gen_event_input_;
+	const edm::InputTag genParticles_;
 	const std::string prefix_;
-	const int TopPtSystematic_;
+//	const int TopPtSystematic_;
 };
 
 #endif

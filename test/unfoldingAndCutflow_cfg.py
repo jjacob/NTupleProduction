@@ -104,8 +104,9 @@ process.eventWeightBtagMuPlusJets = process.eventWeightBtagEPlusJets.clone(
 
 process.eventWeightTopPt = process.eventWeightTopPt.clone(
             gen_event_input = cms.InputTag( 'genEvt'),
-            prefix = cms.string( 'TopPtReweights.'),
-            TopPtSystematic = cms.int32(0)
+            genParticles = cms.InputTag( 'genParticles'),
+            prefix = cms.string( 'TopPtReweights.')
+#            TopPtSystematic = cms.int32(0)
             )
 
 electron_unfolding_analysers = [
