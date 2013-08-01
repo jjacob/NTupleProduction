@@ -61,6 +61,7 @@ private:
 	TH1F* truth_asym_bins_, *measured_asym_bins_, *fake_asym_bins_, *contamination_asym_bins_in_gen_variable_,
 			*contamination_asym_bins_in_reco_variable_;
 	TH2F* response_asym_bins_, *response_without_fakes_asym_bins_;
+	TH1F* weights_before_top_pt_, *weights_after_top_pt_;
 
 	//functions
 	float get_gen_variable(const edm::Event& iEvent) const;

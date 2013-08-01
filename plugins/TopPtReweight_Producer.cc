@@ -53,3 +53,14 @@ void TopPtReweight_Producer::produce(edm::Event& iEvent, const edm::EventSetup& 
 	}
 }
 
+void TopPtReweight_Producer::fillDescriptions(edm::ConfigurationDescriptions & descriptions) {
+	edm::ParameterSetDescription desc;
+	desc.add < InputTag > ("genEvt");
+	desc.add < string > ("TopPtReweights");
+	desc.add < int > ("TopPtSystematic");
+
+	descriptions.add("TopPtReweight_Producer", desc);
+}
+
+
+DEFINE_FWK_MODULE (TopPtReweight_Producer);
