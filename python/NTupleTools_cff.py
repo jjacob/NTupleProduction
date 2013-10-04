@@ -13,11 +13,15 @@ GLOBALTAG_DATA = 'FT_53_V21_AN3::All' # Used for 2012 A and B: 22Jan2013 re-reco
 #GLOBALTAG_DATA = 'FT_P_V42C_AN4::All' # Used for 2012 C run 201191: ecal recovery of run 201191 (11Dec2012 re-reco)
 
 #Monte Carlo Global Tag
-GLOBALTAG_MC = 'START53_V21::All'
-FILETAG = '53X'
+#GLOBALTAG_MC = 'START53_V21::All'
+#FILETAG = '53X'
+GLOBALTAG_MC = 'FT44_V11_AN1'
+FILETAG='44X'
 
-TEST_DATA_FILE = 'file:///storage/TopQuarkGroup/test/SingleElectron_Run2012B_13Jul2012_ReReco_AOD.root'
-TEST_MC_FILE = 'file:///storage/TopQuarkGroup/mc/8TeV/SynchEx/Summer12_DR53X_TTJets_MassiveBinDECAY_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V7A-v1.root'
+#TEST_DATA_FILE = 'file:///storage/TopQuarkGroup/test/SingleElectron_Run2012B_13Jul2012_ReReco_AOD.root'
+TEST_DATA_FILE = 'file:///storage/TopQuarkGroup/test/TTJets_TuneZ2_7TeV_Fall11_44X_AODSIM.root'
+#TEST_MC_FILE = 'file:///storage/TopQuarkGroup/mc/8TeV/SynchEx/Summer12_DR53X_TTJets_MassiveBinDECAY_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V7A-v1.root'
+TYEST_MC_FILE = 'file:///storage/TopQuarkGroup/test/TTJets_TuneZ2_7TeV-madgraph-tauola_Fall11_AODSIM.root'
 
 #CERN
 #TEST_DATA_FILE = '/store/data/Run2012A/ElectronHad/AOD/PromptReco-v1/000/193/336/C47F154E-A697-E111-83F5-001D09F24D8A.root'
