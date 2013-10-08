@@ -14,8 +14,6 @@ private:
 	void produce(edm::Event &, const edm::EventSetup &);
 	const edm::InputTag dcsInputTag;
 	edm::InputTag hcalLaserFilterInput_, ecalDeadCellFilterInput_, ecalDeadCellTriggerPrimitiveFilterInput_, trackingFailureFilter_,
-					eeBadSCFilterInput_, //
-					ecalLaserCorrFilterInput_, //
 					manystripclus53XInput_, //
 					toomanystripclus53XInput_, //
 					logErrorTooManyClustersInput_, //
