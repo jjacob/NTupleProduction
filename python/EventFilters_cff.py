@@ -11,10 +11,8 @@ def setup_eventfilters(process, cms, options, useTrackingFailureFilter=False):
     process.EcalDeadCellBoundaryEnergyFilter = setup_ECALDeadCellFilter(process, cms)
     process.EcalDeadCellTriggerPrimitiveFilter = setup_ECALDeadCellTriggerPrimitiveFilter(process, cms)
     process.trackingFailureFilter = setup_trackingFailureFilter(process, cms)
-    process.eeBadScFilter = setup_eeBadScFilter(process, cms)
-    process.ecalLaserCorrFilter = setup_ecalLaserCorrFilter(process, cms)
     #setting up tracking POG filters                                                                                                                                                                                                      
-    setup_trackingPOGfilters(process, cms)
+#    setup_trackingPOGfilters(process, cms)
     
     process.EventFilter = setup_skim(process, cms, options)
     process.EventFilter.HBHENoiseFilterInput = cms.InputTag('HBHENoiseFilterResultProducer', 'HBHENoiseFilterResult')
@@ -22,8 +20,6 @@ def setup_eventfilters(process, cms, options, useTrackingFailureFilter=False):
     process.EventFilter.ECALDeadCellFilterInput = cms.InputTag('EcalDeadCellBoundaryEnergyFilter')
     process.EventFilter.ECALDeadCellTriggerPrimitiveFilterInput = cms.InputTag('EcalDeadCellTriggerPrimitiveFilter')
     process.EventFilter.TrackingFailureFilterInput = cms.InputTag('trackingFailureFilter')
-    process.EventFilter.EEBadSCFilterInput = cms.InputTag('eeBadScFilter')
-    process.EventFilter.ECALLaserCorrFilterInput = cms.InputTag('ecalLaserCorrFilter')
     #tracking POG filters
     process.EventFilter.manystripclus53XInput = cms.InputTag('manystripclus53X')
     process.EventFilter.toomanystripclus53XInput = cms.InputTag('toomanystripclus53X')
@@ -41,10 +37,8 @@ def setup_eventfilters(process, cms, options, useTrackingFailureFilter=False):
                 process.HcalLaserEventFilter * 
                 process.EcalDeadCellBoundaryEnergyFilter *
                 process.EcalDeadCellTriggerPrimitiveFilter *
-                process.eeBadScFilter *
-                process.ecalLaserCorrFilter *
-                ~process.manystripclus53X *
-                ~process.toomanystripclus53X *
+#                ~process.manystripclus53X *
+#                ~process.toomanystripclus53X *
                 #~process.logErrorTooManyClusters *
                 process.EventFilter
                 )

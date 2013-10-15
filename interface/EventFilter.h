@@ -21,6 +21,7 @@ enum value {
 	passECALDeadCellFilter,
 	passECALDeadCellTriggerPrimitiveFilter,
 	passTrackingFailureFilter,
+	passTrackingPOGFilters,
 	passScrapingVeto,
 	passGoodPrimaryVertex,
 	passElectronCuts,
@@ -81,7 +82,7 @@ private:
 
 	double minJetPt_, maxAbsJetEta_, minElectronPt_, maxAbsElectronEta_, minMuonPt_, maxAbsMuonEta_;
 
-	bool debug_, counteitherleptontype_, useTrackingFailureFilter_, useOptionalMETFilters_;
+	bool debug_, counteitherleptontype_, useTrackingFailureFilter_, useTrackingPOGFilters_, useOptionalMETFilters_;
 	std::vector<int> eventCount_;
 
 	TH1I* hCount;

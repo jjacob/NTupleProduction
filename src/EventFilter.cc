@@ -19,8 +19,6 @@ EventFilter::EventFilter(const edm::ParameterSet& iConfig) :
 		ecalDeadCellFilterInput_(iConfig.getParameter < edm::InputTag > ("ECALDeadCellFilterInput")), //
 		ecalDeadCellTriggerPrimitiveFilterInput_(iConfig.getParameter < edm::InputTag > ("ECALDeadCellTriggerPrimitiveFilterInput")), //
 		trackingFailureFilterInput_(iConfig.getParameter < edm::InputTag > ("TrackingFailureFilterInput")), //
-		eeBadSCFilterInput_(iConfig.getParameter < edm::InputTag > ("EEBadSCFilterInput")), //
-		ecalLaserCorrFilterInput_(iConfig.getParameter < edm::InputTag > ("ECALLaserCorrFilterInput")), //
 		manystripclus53XInput_(iConfig.getParameter < edm::InputTag > ("manystripclus53XInput")), //
 		toomanystripclus53XInput_(iConfig.getParameter < edm::InputTag > ("toomanystripclus53XInput")), //
 		logErrorTooManyClustersInput_(iConfig.getParameter < edm::InputTag > ("logErrorTooManyClustersInput")), //
@@ -107,10 +105,6 @@ bool EventFilter::passesSelectionStep(edm::Event& event, Filters::value filter) 
 			return passesFilter(event, trackingFailureFilterInput_);
 		else
 			return true;
-	case Filters::passEEBadSCFilter:
-		return passesFilter(event, eeBadSCFilterInput_);
-	case Filters::passECALLaserCorrFilter:
-		return passesFilter(event, ecalLaserCorrFilterInput_);
 	case Filters::passTrackingPOGFilters:
 		if (useTrackingPOGFilters_)
 			return !passesFilter(event, manystripclus53XInput_) && !passesFilter(event, toomanystripclus53XInput_);
@@ -348,8 +342,6 @@ void EventFilter::fillDescriptions(edm::ConfigurationDescriptions& descriptions)
 	desc.add < edm::InputTag > ("ECALDeadCellFilterInput", edm::InputTag("EcalDeadCellBoundaryEnergyFilter"));
 	desc.add < edm::InputTag > ("ECALDeadCellTriggerPrimitiveFilterInput", edm::InputTag("EcalDeadCellTriggerPrimitiveFilter"));
 	desc.add < edm::InputTag > ("TrackingFailureFilterInput", edm::InputTag("trackingFailureFilter"));
-	desc.add < edm::InputTag > ("EEBadSCFilterInput", edm::InputTag("eeBadScFilter"));
-	desc.add < edm::InputTag > ("ECALLaserCorrFilterInput", edm::InputTag("ecalLaserCorrFilter"));
 	desc.add < edm::InputTag > ("manystripclus53XInput", edm::InputTag("manystripclus53X"));
 	desc.add < edm::InputTag > ("toomanystripclus53XInput", edm::InputTag("toomanystripclus53X"));
 	desc.add < edm::InputTag > ("logErrorTooManyClustersInput", edm::InputTag("logErrorTooManyClusters"));
