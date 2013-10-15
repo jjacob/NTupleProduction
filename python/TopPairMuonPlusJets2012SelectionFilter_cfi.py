@@ -14,17 +14,16 @@ topPairMuPlusJetsSelection = cms.EDFilter('TopPairMuonPlusJets2012SelectionFilte
     ECALDeadCellFilterInput=cms.InputTag('EcalDeadCellTriggerPrimitiveFilter'),
     TrackingFailureFilterInput=cms.InputTag('trackingFailureFilter'),
     BadEESupercrystalFilterInput=cms.InputTag('BadEESupercrystalFilter'),
-    ECALLaserCorrFilterInput=cms.InputTag('ecalLaserCorrFilter'),
     #trackingPOGfilters
     ManyStripClus53XInput=cms.InputTag('manystripclus53X'),
     TooManyStripClus53XInput=cms.InputTag('toomanystripclus53X'),
     #LogErrorTooManyClusters=cms.InputTag('logErrorTooManyClusters'),
 
 #jet cuts
-    min1JetPt=cms.double(30.),
-    min2JetPt=cms.double(30.),
-    min3JetPt=cms.double(30.),
-    min4JetPt=cms.double(30.),
+    min1JetPt=cms.double(45.),
+    min2JetPt=cms.double(45.),
+    min3JetPt=cms.double(45.),
+    min4JetPt=cms.double(20.),
 #lepton isolation
     tightMuonIsolation=cms.double(0.12),
     looseElectronIsolation=cms.double(0.15),

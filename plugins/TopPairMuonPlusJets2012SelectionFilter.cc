@@ -28,7 +28,6 @@ TopPairMuonPlusJets2012SelectionFilter::TopPairMuonPlusJets2012SelectionFilter(c
 		hcalNoiseInput_(iConfig.getParameter < edm::InputTag > ("HcalNoiseInput")), //
 		hcalLaserFilterInput_(iConfig.getParameter < edm::InputTag > ("HCALLaserFilterInput")), //
 		ecalDeadCellFilterInput_(iConfig.getParameter < edm::InputTag > ("ECALDeadCellFilterInput")), //
-		ecalLaserCorrFilterInput_(iConfig.getParameter < edm::InputTag > ("ECALLaserCorrFilterInput")), //
 		manystripclus53X_(iConfig.getParameter < edm::InputTag > ("ManyStripClus53XInput")), //
 		toomanystripclus53X_(iConfig.getParameter < edm::InputTag > ("TooManyStripClus53XInput")), //
 //		logErrorTooManyClusters_(iConfig.getParameter < edm::InputTag > ("LogErrorTooManyClusters")), //
@@ -88,16 +87,15 @@ void TopPairMuonPlusJets2012SelectionFilter::fillDescriptions(edm::Configuration
 	desc.add < InputTag > ("HcalNoiseInput");
 	desc.add < InputTag > ("HCALLaserFilterInput");
 	desc.add < InputTag > ("ECALDeadCellFilterInput");
-	desc.add < InputTag > ("ECALLaserCorrFilterInput");
 	desc.add < InputTag > ("ManyStripClus53XInput");
 	desc.add < InputTag > ("TooManyStripClus53XInput");
 //	desc.add < InputTag > ("LogErrorTooManyClusters");
 	desc.add < InputTag > ("TrackingFailureFilterInput");
 	desc.add < InputTag > ("BadEESupercrystalFilterInput");
-	desc.add<double>("min1JetPt", 30.0);
-	desc.add<double>("min2JetPt", 30.0);
-	desc.add<double>("min3JetPt", 30.0);
-	desc.add<double>("min4JetPt", 30.0);
+	desc.add<double>("min1JetPt", 45.0);
+	desc.add<double>("min2JetPt", 45.0);
+	desc.add<double>("min3JetPt", 45.0);
+	desc.add<double>("min4JetPt", 20.0);
 	desc.add<double>("tightMuonIsolation", 0.12);
 	desc.add<double>("looseElectronIsolation", 0.15);
 	desc.add<double>("looseMuonIsolation", 0.2);
@@ -228,7 +226,7 @@ void TopPairMuonPlusJets2012SelectionFilter::getLooseElectrons() {
 bool TopPairMuonPlusJets2012SelectionFilter::isLooseElectron(const pat::Electron& electron) const {
 	bool passesPtAndEta = electron.pt() > 20 && fabs(electron.eta()) < 2.5;
 	//		bool notInCrack = fabs(electron.superCluster()->eta()) < 1.4442 || fabs(electron.superCluster()->eta()) > 1.5660;
-	bool passesID = electron.electronID("mvaTrigV0") > 0.5;
+	bool passesID = electron.electronID("mvaTrigV0") > 0.0;
 	bool passesIso = getRelativeIsolation(electron, 0.3, rho_, isRealData_, useDeltaBetaCorrections_,
 			useRhoActiveAreaCorrections_) < looseElectronIso_;
 	
@@ -326,7 +324,7 @@ void TopPairMuonPlusJets2012SelectionFilter::cleanedBJets() {
 bool TopPairMuonPlusJets2012SelectionFilter::isGoodJet(const pat::Jet& jet) const {
 	//both cuts are done at PAT config level (selectedPATJets) this is just for safety
 	double smearFactor = getSmearedJetPtScale(jet, 0);
-	bool passesPtAndEta(smearFactor*jet.pt() > 20. && fabs(jet.eta() < 2.5));
+	bool passesPtAndEta(smearFactor*jet.pt() > 30. && fabs(jet.eta() < 2.4));
 	
 	bool passesJetID(false);
 	
@@ -404,7 +402,6 @@ bool TopPairMuonPlusJets2012SelectionFilter::passesEventCleaning(edm::Event& iEv
 		passesMETFilters = passesMETFilters && passesFilter(iEvent, hcalLaserFilterInput_);
 		passesMETFilters = passesMETFilters && passesFilter(iEvent, ecalDeadCellFilterInput_);
 		passesMETFilters = passesMETFilters && passesFilter(iEvent, trackingFailureFilter_);
-		passesMETFilters = passesMETFilters && passesFilter(iEvent, ecalLaserCorrFilterInput_);
 		passesMETFilters = passesMETFilters && !passesFilter(iEvent, manystripclus53X_);
 		passesMETFilters = passesMETFilters && !passesFilter(iEvent, toomanystripclus53X_);
 //		passesMETFilters = passesMETFilters && !passesFilter(iEvent, logErrorTooManyClusters_);
