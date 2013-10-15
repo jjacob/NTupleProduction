@@ -11,17 +11,18 @@ GLOBALTAG_DATA = 'FT_53_V21_AN3::All' # Used for 2012 A and B: 22Jan2013 re-reco
 #GLOBALTAG_DATA = 'FT53_V10A_AN4::All' # Used for 2012 C: 24Aug2012 re-reco (v1)
 #GLOBALTAG_DATA = 'GR_P_V42_AN4::All' # Used for 2012 C prompt reco (v2) and Run 2012 D prompt reco (v1)
 #GLOBALTAG_DATA = 'FT_P_V42C_AN4::All' # Used for 2012 C run 201191: ecal recovery of run 201191 (11Dec2012 re-reco)
+GLOBALTAG_DATA = 'FT44_V11_AN1 ::All'
 
 #Monte Carlo Global Tag
 #GLOBALTAG_MC = 'START53_V21::All'
 #FILETAG = '53X'
-GLOBALTAG_MC = 'FT44_V11_AN1'
+GLOBALTAG_MC = 'START44_V9E'
 FILETAG='44X'
 
 #TEST_DATA_FILE = 'file:///storage/TopQuarkGroup/test/SingleElectron_Run2012B_13Jul2012_ReReco_AOD.root'
 TEST_DATA_FILE = 'file:///storage/TopQuarkGroup/test/TTJets_TuneZ2_7TeV_Fall11_44X_AODSIM.root'
 #TEST_MC_FILE = 'file:///storage/TopQuarkGroup/mc/8TeV/SynchEx/Summer12_DR53X_TTJets_MassiveBinDECAY_TuneZ2star_8TeV-madgraph-tauola_AODSIM_PU_S10_START53_V7A-v1.root'
-TYEST_MC_FILE = 'file:///storage/TopQuarkGroup/test/TTJets_TuneZ2_7TeV-madgraph-tauola_Fall11_AODSIM.root'
+TEST_MC_FILE = 'file:///storage/TopQuarkGroup/test/TTJets_TuneZ2_7TeV-madgraph-tauola_Fall11_AODSIM.root'
 
 #CERN
 #TEST_DATA_FILE = '/store/data/Run2012A/ElectronHad/AOD/PromptReco-v1/000/193/336/C47F154E-A697-E111-83F5-001D09F24D8A.root'
@@ -275,9 +276,9 @@ process.patseq = cms.Sequence(
     process.flavorHistorySeq 
     )
 
-process.patseq.replace(process.goodOfflinePrimaryVertices,
-                            process.goodOfflinePrimaryVertices * 
-                            process.eidCiCSequence)
+#process.patseq.replace(process.goodOfflinePrimaryVertices,
+#                            process.goodOfflinePrimaryVertices * 
+#                            process.eidCiCSequence)
 
 if options.useData:
     process.patseq.remove(process.genParticlesForJetsNoNu)
@@ -352,7 +353,7 @@ process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(100)
 #
 # We suppress these messages.  Suppression can be removed by commenting the following line.
 #----------------------------------------------------------------------------------------------------
-process.MessageLogger.suppressError = cms.untracked.vstring ('ecalLaserCorrFilter') 
+#process.MessageLogger.suppressError = cms.untracked.vstring ('ecalLaserCorrFilter') 
 
 # process all the events
 if options.maxEvents:

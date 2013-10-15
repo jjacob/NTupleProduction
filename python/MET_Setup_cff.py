@@ -70,12 +70,12 @@ def setup_MET_uncertainties(process, cms, options, postfix="PFlow"):
     #runMEtUncertainties(process, doSmearJets=not options.useData, jetCollection='goodPatJetsPFlow', addToPatDefaultSequence=False)                                                                                                             
     if options.useData:
         inputJetCorrLabelForMETuncertainties = 'L2L3Residual'
-        metSysShiftCorrParameter = process.pfMEtSysShiftCorrParameters_2012runAvsNvtx_data
+#        metSysShiftCorrParameter = process.pfMEtSysShiftCorrParameters_2012runAvsNvtx_data
     else:
         inputJetCorrLabelForMETuncertainties = 'L3Absolute'
-        metSysShiftCorrParameter = process.pfMEtSysShiftCorrParameters_2012runAvsNvtx_mc
+#        metSysShiftCorrParameter = process.pfMEtSysShiftCorrParameters_2012runAvsNvtx_mc
         
-    process.pfMEtSysShiftCorr.parameter = metSysShiftCorrParameter
+#    process.pfMEtSysShiftCorr.parameter = metSysShiftCorrParameter
 
     runMEtUncertainties(process,
                     electronCollection = cms.InputTag('cleanPatElectrons'),
@@ -84,12 +84,12 @@ def setup_MET_uncertainties(process, cms, options, postfix="PFlow"):
                     jetCollection = cms.InputTag('goodPatJetsPFlow'),
                     jetCorrLabel = inputJetCorrLabelForMETuncertainties,
                     doSmearJets = not options.useData,
-                    makeType1corrPFMEt = True,
-                    makeType1p2corrPFMEt = True,
-                    makePFMEtByMVA = False,
-                    makeNoPileUpPFMEt = False,
-                    doApplyType0corr = options.applyType0METcorrection,
-                    sysShiftCorrParameter = metSysShiftCorrParameter,
-                    doApplySysShiftCorr = options.applySysShiftCorrection,
-                    addToPatDefaultSequence=False
+#                    makeType1corrPFMEt = True,
+#                    makeType1p2corrPFMEt = True,
+#                    makePFMEtByMVA = False,
+#                    makeNoPileUpPFMEt = False,
+#                    doApplyType0corr = options.applyType0METcorrection,
+#                    sysShiftCorrParameter = metSysShiftCorrParameter,
+#                    doApplySysShiftCorr = options.applySysShiftCorrection,
+#                    addToPatDefaultSequence=False
                     )

@@ -18,8 +18,8 @@ def setup_PF2PAT(process, cms, options, postfix="PFlow", removeTausFromJetCollec
     # manually adding type0 corrections in the sequence: has to be done before setting up PF2PAT
     process.load("PhysicsTools.PatUtils.patPFMETCorrections_cff")
     process.producePatPFMETCorrections.replace(process.pfCandMETcorr,
-                                               process.type0PFMEtCorrection *
-                                               process.patPFMETtype0Corr *
+#                                               process.type0PFMEtCorrection *
+#                                               process.patPFMETtype0Corr *
                                                process.pfCandMETcorr
                                                )
     
