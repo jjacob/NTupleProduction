@@ -21,7 +21,7 @@ public:
 	UnfoldingAnalyser(const edm::ParameterSet& iConfig);
 	static void fillDescriptions(edm::ConfigurationDescriptions & descriptions);
 
-	virtual void analyze(const edm::Event&, const edm::EventSetup&);
+	virtual void analyze(const edm::Event&, const edm::EventSetup&, std::string MCSampleTag);
 	virtual void beginJob();
 	virtual void endJob();
 
@@ -65,7 +65,7 @@ private:
 
 	//functions
 	float get_gen_variable(const edm::Event& iEvent) const;
-	float get_reco_variable(const edm::Event& iEvent) const;
+	float get_reco_variable(const edm::Event& iEvent, std::string MCSampleTag) const;
 
 	float get_gen_met(const edm::Event& iEvent) const;
 	float get_reco_met(const edm::Event& iEvent) const;
@@ -73,13 +73,13 @@ private:
 	float get_gen_met_nu(const edm::Event& iEvent) const;
 
 	float get_gen_ht(const edm::Event& iEvent) const;
-	float get_reco_ht(const edm::Event& iEvent) const;
+	float get_reco_ht(const edm::Event& iEvent, std::string MCSampleTag) const;
 
 	float get_gen_ht_nocuts(const edm::Event& iEvent) const;
 	float get_gen_ht_parton(const edm::Event& iEvent) const;
 	
 	float get_gen_st(const edm::Event& iEvent) const;
-	float get_reco_st(const edm::Event& iEvent) const;
+	float get_reco_st(const edm::Event& iEvent, std::string MCSampleTag) const;
 
 	float get_gen_st_nocuts(const edm::Event& iEvent) const;
 	float get_gen_st_parton(const edm::Event& iEvent) const;

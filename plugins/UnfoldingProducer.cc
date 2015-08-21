@@ -98,7 +98,7 @@ void UnfoldingProducer::fillDescriptions(edm::ConfigurationDescriptions & descri
 void UnfoldingProducer::beginJob() {
 }
 
-void UnfoldingProducer::produce( edm::Event& iEvent, const edm::EventSetup&) {
+void UnfoldingProducer::produce( edm::Event& iEvent, const edm::EventSetup&, std::string MCSampleTag) {
 	if (iEvent.isRealData()) { //this analysis should only be done on MC
 		return;
 	}
@@ -227,11 +227,11 @@ void UnfoldingProducer::produce( edm::Event& iEvent, const edm::EventSetup&) {
 	iEvent.put(recoMET, prefix+"recoMET"+suffix);
 
 	// ST
-	std::auto_ptr<double> recoST(new double(get_reco_st(iEvent)));
+	std::auto_ptr<double> recoST(new double(get_reco_st(iEvent, MCSampleTag)));
 	iEvent.put(recoST, prefix+"recoST"+suffix);
 
 	//HT
-	std::auto_ptr<double> recoHT(new double(get_reco_ht(iEvent)));
+	std::auto_ptr<double> recoHT(new double(get_reco_ht(iEvent, MCSampleTag)));
 	iEvent.put(recoHT, prefix+"recoHT"+suffix);
 
 	//WPT
@@ -339,7 +339,7 @@ float UnfoldingProducer::get_reco_met(const edm::Event& iEvent) const {
 	return recoMETObject.pt();
 }
 
-float UnfoldingProducer::get_reco_ht(const edm::Event& iEvent) const {
+float UnfoldingProducer::get_reco_ht(const edm::Event& iEvent, std::string MCSampleTag) const {
 	edm::Handle < pat::JetCollection > jets;
 	iEvent.getByLabel(reco_jet_input_, jets);
 	float ht(0.);
@@ -347,14 +347,14 @@ float UnfoldingProducer::get_reco_ht(const edm::Event& iEvent) const {
 	//Take ALL the jets!
 	for (unsigned int index = 0; index < jets->size(); ++index) {
 		const pat::Jet jet = jets->at(index);
-		ht += getSmearedJetPtScale(jets->at(index), 0)*jets->at(index).pt();
+		ht += getSmearedJetPtScale(jets->at(index), 0, MCSampleTag)*jets->at(index).pt();
 	}
 	return ht;
 }
 
-float UnfoldingProducer::get_reco_st(const edm::Event& iEvent) const {
+float UnfoldingProducer::get_reco_st(const edm::Event& iEvent, std::string MCSampleTag) const {
 	// ST = HT + MET + lepton pt
-	float ht = get_reco_ht(iEvent);
+	float ht = get_reco_ht(iEvent, MCSampleTag);
 	float met = get_reco_met(iEvent);
 	//get lepton
 	const reco::Candidate* lepton = get_reco_lepton(iEvent);

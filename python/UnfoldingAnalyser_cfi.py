@@ -42,6 +42,7 @@ unfolding_MET_analyser_electron_channel_patMETsPFlow = cms.EDAnalyzer("Unfolding
     variable_n_bins=cms.uint32(variable_bins['MET']['n_bins']),
     bin_edges=cms.vdouble([0, 25, 45, 70, 100, 150, 2000]),
     centre_of_mass_energy = cms.double( 8 ),
+    MCSampleTag = cms.string('Summer12'),#Fall11 or Summer12 or Summer11Leg
 )
 
 unfolding_MET_analyser_muon_channel_patMETsPFlow = unfolding_MET_analyser_electron_channel_patMETsPFlow.clone(

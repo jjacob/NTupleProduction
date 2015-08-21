@@ -21,7 +21,7 @@ public:
 	UnfoldingProducer(const edm::ParameterSet&);
 	static void fillDescriptions(edm::ConfigurationDescriptions & descriptions);
 
-	virtual void produce( edm::Event&, const edm::EventSetup&);
+	virtual void produce( edm::Event&, const edm::EventSetup&, std::string MCSampleTag);
 	virtual void beginJob();
 
 private:
@@ -51,10 +51,10 @@ private:
 	float get_reco_met(const edm::Event& iEvent) const;
 	
 	float get_gen_ht(const edm::Event& iEvent) const;
-	float get_reco_ht(const edm::Event& iEvent) const;
+	float get_reco_ht(const edm::Event& iEvent, std::string MCSampleTag) const;
 
 	float get_gen_st(const edm::Event& iEvent) const;
-	float get_reco_st(const edm::Event& iEvent) const;
+	float get_reco_st(const edm::Event& iEvent, std::string MCSampleTag) const;
 
 	float get_gen_mt(const edm::Event& iEvent) const;
 	float get_reco_mt(const edm::Event& iEvent) const;

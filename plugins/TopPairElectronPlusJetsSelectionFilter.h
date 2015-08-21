@@ -56,13 +56,13 @@ public:
 	virtual ~TopPairElectronPlusJetsSelectionFilter();
 
 	virtual void beginJob();
-	virtual bool filter(edm::Event&, const edm::EventSetup&);
+	virtual bool filter(edm::Event&, const edm::EventSetup&, std::string MCSampleTag);
 	virtual void endJob();
 	virtual bool beginRun(edm::Run &, const edm::EventSetup &);
 
 	static void fillDescriptions(edm::ConfigurationDescriptions & descriptions);
 
-	virtual bool isGoodJet(const pat::Jet& jet) const;
+	virtual bool isGoodJet(const pat::Jet& jet, std::string MCSampleTag) const;
 	virtual bool isGoodElectron(const pat::Electron& electron) const;
 
 	//definitions of loose objects
@@ -74,10 +74,10 @@ public:
 	virtual void getLooseElectrons();
 	virtual void getLooseMuons();
 	virtual void goodIsolatedElectrons();
-	virtual void cleanedJets();
+	virtual void cleanedJets(std::string MCSampleTag);
 	virtual void cleanedBJets();
 
-	virtual bool passesSelectionStep(edm::Event& iEvent, unsigned int selectionStep) const;
+	virtual bool passesSelectionStep(edm::Event& iEvent, unsigned int selectionStep, std::string MCSampleTag) const;
 
 	virtual bool passesEventCleaning(edm::Event& iEvent) const;
 	virtual bool passesScrapingVeto(edm::Event& event) const;
@@ -86,17 +86,17 @@ public:
 	virtual bool passesLooseLeptonVeto() const;
 	virtual bool passesDileptonVeto() const;
 	virtual bool passesConversionVeto() const;
-	virtual bool hasAtLeastOneGoodJet() const;
-	virtual bool hasAtLeastTwoGoodJets() const;
-	virtual bool hasAtLeastThreeGoodJets() const;
-	virtual bool hasAtLeastFourGoodJets() const;
+	virtual bool hasAtLeastOneGoodJet(std::string MCSampleTag) const;
+	virtual bool hasAtLeastTwoGoodJets(std::string MCSampleTag) const;
+	virtual bool hasAtLeastThreeGoodJets(std::string MCSampleTag) const;
+	virtual bool hasAtLeastFourGoodJets(std::string MCSampleTag) const;
 	virtual bool hasExactlyZeroGoodBJet() const;
 	virtual bool hasExactlyOneGoodBJet() const;
 	virtual bool hasAtLeastOneGoodBJet() const;
 	virtual bool hasAtLeastTwoGoodBJets() const;
 
 private:
-	virtual void setupEventContent(edm::Event& iEvent);
+	virtual void setupEventContent(edm::Event& iEvent, std::string MCSampleTag);
 
 	//config
 	edm::InputTag jetInput_, electronInput_, muonInput_, hltInputTag_, VertexInput_, trkInput_, hcalNoiseInput_;

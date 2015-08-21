@@ -42,6 +42,7 @@ if options.isMCatNLO:
 if options.CMSSW == '44X':
     process.topPairEPlusJetsSelection.MCSampleTag = cms.string( 'Fall11' )  
     process.topPairMuPlusJetsSelection.MCSampleTag = cms.string( 'Fall11' )
+    process.top
 elif options.CMSSW == '53X' and options.centreOfMassEnergy == 8:
     process.topPairEPlusJetsSelection.MCSampleTag = cms.string( 'Summer12' )  
     process.topPairMuPlusJetsSelection.MCSampleTag = cms.string( 'Summer12' )
@@ -124,6 +125,11 @@ for analyser in electron_unfolding_analysers:
     analyser.electron_input = cms.InputTag( "topPairEPlusJetsSelection", electronselectionPrefix + 'signalElectron', 'PAT' )
     analyser.leptonWeightsInputTag = cms.InputTag( "eventWeightElectrons" )
 
+    if options.CMSSW == '53X' and options.centreOfMassEnergy == 8:
+        analyser.MCSampleTag = cms.string( 'Summer12' )  
+    elif options.CMSSW == '53X' and options.centreOfMassEnergy == 7:
+        analyser.MCSampleTag = cms.string( 'Summer11Leg' )
+
 muon_unfolding_analysers = [
     process.unfoldingProducerMuon,    
 ]
@@ -133,6 +139,11 @@ for analyser in muon_unfolding_analysers:
     analyser.b_tag_weight_input = cms.InputTag( 'eventWeightBtagMuPlusJets' )
     analyser.reco_jet_input = cms.InputTag( "topPairMuPlusJetsSelection", muonselectionPrefix + 'cleanedJets', 'PAT' )
     analyser.muon_input = cms.InputTag( "topPairMuPlusJetsSelection", muonselectionPrefix + 'signalMuon', 'PAT' )
+
+    if options.CMSSW == '53X' and options.centreOfMassEnergy == 8:
+        analyser.MCSampleTag = cms.string( 'Summer12' )  
+    elif options.CMSSW == '53X' and options.centreOfMassEnergy == 7:
+        analyser.MCSampleTag = cms.string( 'Summer11Leg' )
 
 # NTuple setup
 process.rootTupleTree = cms.EDAnalyzer("RootTupleMakerV2_Tree",
